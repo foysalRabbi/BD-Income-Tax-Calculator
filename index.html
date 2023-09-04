@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BD Income Tax Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row" style="margin-top: 3px;">
+        <div class="col-md-8 col-12">
+            <div>
+                <div class="row">
+                    <div class="col-12">
+                        <form>
+                            <div class="row">
+                                <div class="col-4 form-group">
+                                    <select class="form-control">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="specially-abled">Specially-abled</option>
+                                        <option value="freedom-fighter">Gazetted freedom fighter</option>
+                                    </select>
+                                    <small class="text-info form-text">Gender/Privilege</small>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <select class="form-control">
+                                        <option value="below">Below or 65</option>
+                                        <option value="above">Above 65</option>
+                                    </select>
+                                    <small class="text-info form-text">Age group</small>
+                                </div>
+                                <div class="col-4 form-group"><input min="0" placeholder="Minimum tax in your area" type="number" class="form-control" value="5000" /><small class="text-info form-text">Minimum tax in your area</small></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <form class="">
+                            <div class="row">
+                                <div class="col-3 form-group"><input placeholder="Company name" id="showpokat" class="form-control"/><small class="text-info form-text">Company name</small></div>
+                                <div class="col-3 form-group"><input min="0" placeholder="No. of months" id="month" type="number" class="form-control"  /><small class="text-info form-text">Number of months</small></div>
+                                <div class="col-2 form-group"><input min="0" placeholder="No. of festivals" id="festivalsInput" type="number" class="form-control" /><small class="text-info form-text">Number of festivals</small></div>
+                                <div class="col-4 form-group">
+                                    <select class="form-control">
+                                        <option value="monthly">Calculate from Monthly</option>
+                                        <option value="yearly">Calculate for specified months</option>
+                                    </select>
+                                    <small class="text-info form-text">Calculation type</small>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12" id="pokat">
+                        <div class="">
+                            <table class="table table-sm">
+                                <caption>
+                                    Earnings at "" - [12 months] - [2 festivals]
+                                </caption>
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Particulars</th>
+                                        <th>Total Income(BDT.)</th>
+                                        <th>Max exempted Income (BDT.)</th>
+                                        <th>Net Taxable Amount (BDT.)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Basic Salary</td>
+                                        <td><input min="0" placeholder="Basic pay" type="number" id="basic" class="form-control-sm form-control" /></td>
+                                        <td >0</td>
+                                        <td id="bs">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>House Rent</td>
+                                        <td><input min="0" placeholder="House rent" type="number" id="house" class="form-control-sm form-control" /></td>
+                                        <td id="hr">0</td>
+                                        <td id="houseNet">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Medical Allowance</td>
+                                        <td><input min="0" placeholder="Medical Allowance" type="number" id="medical" class="form-control-sm form-control" /></td>
+                                        <td id="ma">0</td>
+                                        <td id="maNa">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Conveyance Allowance</td>
+                                        <td id="ca"><input min="0" placeholder="Conveyance Allowance" type="number" id="conveyance" class="form-control-sm form-control" /></td>
+                                        <td id = "caMi">0</td>
+                                        <td id="caNa">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Leave Fare Assistance</td>
+                                        <td><input min="0" placeholder="LFA" type="number"  id="leaveFare" class="form-control-sm form-control" /></td>
+                                        <td id="lfa">0</td>
+                                        <td id="lfaNa">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Festival Bonus</td>
+                                        <td><input min="0" placeholder="Festival Bonus" type="number" id="festival" class="form-control-sm form-control" /></td>
+                                        <td >0</td>
+                                        <td id="fbNa">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Other Taxable Bonus</td>
+                                        <td><input min="0" placeholder="Other total Taxable Bonus" type="number" id="otherAllowance" class="form-control-sm form-control" /></td>
+                                        <td>0</td>
+                                        <td id="otb">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>TOTAL</b></td>
+                                        <td><b></b></td>
+                                        <td><b>0</b></td>
+                                        <td id="totalNetTaxable"><b>0</b></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <button type="button" class="float-left btn btn-warning btn-sm">Reset Above Data</button><br><br><button type="submit" id="calculation" class="float-right btn btn-primary btn-sm">Calculate for </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5px;"><div class="table-responsive col-12"></div></div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <input min="0" placeholder="Processed AIT by Company" type="number" class="form-control-sm form-control" value="0" /><small class="text-info form-text">Advance Income Tax [Deducted by Company]</small>
+                    </div>
+                    <div class="form-group"><input min="0" placeholder="Total allowable Investment" type="number" class="form-control-sm form-control" value="0" /><small class="text-info form-text">Allowable total investment</small></div>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>Minimum tax</td>
+                                <td><b>5000</b></td>
+                            </tr>
+                            <tr>
+                                <td>Minimum taxable income</td>
+                                <td><b>300000</b></td>
+                            </tr>
+                            <tr>
+                                <td>AIT</td>
+                                <td><b>0</b></td>
+                            </tr>
+                            <tr>
+                                <td>Total investment</td>
+                                <td><b>0</b></td>
+                            </tr>
+                            <tr>
+                                <td>Max allowed investment</td>
+                                <td><b>0</b></td>
+                            </tr>
+                            <tr>
+                                <td>Total taxable income</td>
+                                <td><b>0</b></td>
+                            </tr>
+                            <tr>
+                                <td>Rebate from investment</td>
+                                <td><b>0</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr />
+                    <p class="text-secondary text-center">Tax breakdown</p>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Total Income</th>
+                                    <th>Percentage</th>
+                                    <th>Calculated Tax</th>
+                                    <th>Remaining</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>From 0 to 300000</td>
+                                    <td class="text-center">0%</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                </tr>
+                                <tr>
+                                    <td>For remaining next 100000</td>
+                                    <td class="text-center">5%</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                </tr>
+                                <tr>
+                                    <td>For remaining next 300000</td>
+                                    <td class="text-center">10%</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                </tr>
+                                <tr>
+                                    <td>For remaining next 400000</td>
+                                    <td class="text-center">15%</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                </tr>
+                                <tr>
+                                    <td>For remaining next 500000</td>
+                                    <td class="text-center">20%</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                </tr>
+                                <tr>
+                                    <td>For remaining everything else</td>
+                                    <td class="text-center">25%</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Minimum/Gross Tax</b></td>
+                                    <td></td>
+                                    <td class="text-right"><b>0</b></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Investment rebate</b></td>
+                                    <td></td>
+                                    <td class="text-right"><b> - 0</b></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>AIT deduction</b></td>
+                                    <td></td>
+                                    <td class="text-right"><b> - 0</b></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Net Tax liability</b></td>
+                                    <td></td>
+                                    <td class="text-right"><b> = 0</b></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>    
+
+<script src="js/script.js"> </script>
+
+<script>
+    document.getElementById("calculation").addEventListener("click", function(event){
+        event.preventDefault();
+
+        let noOfMonth = parseFloat(document.getElementById("month").value);
+        let noOfFestivals = parseFloat(document.getElementById("festivalsInput").value);
+
+        let basicSalaryInput = parseFloat(document.getElementById("basic").value);
+        let houseRentInput = parseFloat(document.getElementById("house").value);
+        let medicalAllowanceInput = parseFloat(document.getElementById("medical").value);
+        let conveyanceallowanceInput = parseFloat(document.getElementById("conveyance").value);
+        let leaveFareAssistanceInput = parseFloat(document.getElementById("leaveFare").value)
+        let fastivalBonusInput = parseFloat(document.getElementById("festival").value);
+        let otherAllowanceInput = parseFloat(document.getElementById("otherAllowance").value);
+
+
+       // taxableIncomeCalculation();
+     let basicNetTaxable = basicSalary(basicSalaryInput,noOfMonth);
+      let houseNetTaxable =  houseRent(basicSalaryInput,houseRentInput,noOfMonth);
+      let medicalNeTaxable =  medicalAllowance(medicalAllowanceInput,basicSalaryInput,noOfMonth);
+      let conveyancNetTaxable = conveyanceAllowance(conveyanceallowanceInput, noOfMonth);
+      let leaveFareNetTaxable =  leaveFareAssistance();
+      let fastivalNetTaxable = fastivalBonus1(fastivalBonusInput,noOfFestivals);
+      let otherNetTaxable = otherTaxableBonus(otherAllowanceInput);
+      let TotalnetTaxableAmount = basicNetTaxable + houseNetTaxable + medicalNeTaxable + conveyancNetTaxable + leaveFareNetTaxable + fastivalNetTaxable + otherNetTaxable;
+      console.log(TotalnetTaxableAmount);
+      document.getElementById("totalNetTaxable").innerText = TotalnetTaxableAmount;
+
+      });
+
+</script>
+</body>
+</html>
